@@ -7,24 +7,22 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using FirstWebApplication.DAL.Interfaces;
 
 namespace FirstWebApplication.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IBookRepository bookRepository;
 
-        public HomeController(IBookRepository _bookRepository)
+        public HomeController(ILogger<HomeController> logger)
         {
-            bookRepository = _bookRepository;
+            _logger = logger;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var result = await bookRepository.Select();
-            return View(result);
+            Book book = new Book("Tom Soyer", "Mark Twen", 22.37m);
+            return View(book);
         }
 
         public IActionResult Privacy()
